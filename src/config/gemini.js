@@ -1,21 +1,20 @@
-import dotenv from "dotenv";
-// import { GoogleGenerativeAI } from "@google/generative-ai";
+
 
 import {
   GoogleGenerativeAI,
 } from "@google/generative-ai";
 
-dotenv.config({ path: './.env' });
+// dotenv.config({ path: "C:\\Users\\shiva\\OneDrive\\Desktop\\gemini-clone\\.env" });
 
-const apiKey = process.env.GEMINI_API_KEY;
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 if (!apiKey) {
-  throw new Error("API key is missing. Please set GEMINI_API_KEY in your .env file.");
+  throw new Error("API key is missing. Please set in your .env file.");
 }
 
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: "models/chat-bison-001", // Valid model name
+  model: "gemini-2.0-flash-exp", // Valid model name
 });
 
 const generationConfig = {
@@ -30,7 +29,7 @@ async function run(prompt) {
   try {
     const chatSession = model.startChat({
       generationConfig,
-      history: [], // Optionally, include prior conversation context
+      history: [], 
     });
 
     const result = await chatSession.sendMessage(prompt);
@@ -43,3 +42,8 @@ async function run(prompt) {
 }
 
 export default run;
+
+
+
+
+
